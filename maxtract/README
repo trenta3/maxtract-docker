@@ -1,0 +1,73 @@
+maxtract v.1752 
+32 bit linux 
+15/11/2012
+
+============================= DESCRIPTION ==================================
+
+A command line tool that reads a PDF and returns different formats. Tool is written in Ocaml
+and uses the pdftk for decompressingg the PDF file.
+
+A directory with a random name is created in /tmp during operation, which is
+removed after completion.
+
+============================= REQUIREMENTS ==================================
+
+-- PDFtk which can be obtained from http://www.pdflabs.com/docs/install-pdftk/
+   If under ubuntu or debian 
+      apt-get install pdftk
+
+============================= INSTALLATION ==================================
+
+Maxtract does not require installation, as a binary has been released.
+
+============================== USAGE ========================================
+
+Maxtract must be run from the directory where the binaries have been extracted to.
+
+Running
+ $  ./maxtract.opt -help
+
+Produces the following option list
+
+usage: ./maxtract.opt [-f file] [-o file] [-tex] [-txt] [-lay] [-mat]
+  -f : -f Name of input PDF file
+  -o : -o Name of output file
+ -tex:    Create a latex file (default)
+ -lay:    Create latex for a layered PDF with latex and text layers
+ -ann:    Create latex for an annotated PDF file with latex annotations
+ -txt:    Create a simple text file
+ -mat:    Create a text file with math in latex
+
+
+=== Further explanation ========================================================
+
+-f Is always required and takes a PDF filename which has been validated by pdftester
+
+-o Is always required and specifies an output filename -including extension.
+
+[-tex -lay -txt -mat] Are the choices of output options. -tex is the
+default. Any combinations of output driver can be chosen, if more than one is
+chosen extensions are automatically assigned.  
+
+.tex output from -lay and -ann option needs to be pdflatexed twice to produce the desired
+pdf file.
+
+If a file cannot be processed '0' is returned to stdout.
+
+===EXAMPLES===
+
+./maxtract.opt -f in./maxtract.opt -f test1.pdf -o test
+produces test.tex
+
+./maxtract.opt -f in./maxtract.opt -f test1.pdf -o test -txt
+produces test.txt
+
+./maxtract.opt -f in./maxtract.opt -f test1.pdf -o test.tex -lay -txt
+produces test.txt and test-lay.tex (Remember to pdflatex test_layer.tex twice)
+
+============================= SUPPORT ======================================
+
+Any issues, please contact j.baker@cs.bham.ac.uk 
+
+
+

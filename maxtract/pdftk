@@ -1,0 +1,13 @@
+#!/bin/bash
+# Uncompresses the file
+
+while [[ "$1" != "" ]]; do
+	echo "$1"
+shift
+done
+
+INFILE=$1
+OUTFILE=$3
+
+echo "Uncompressing $1 to $3"
+qpdf --stream-data=uncompress "$1" "$3"

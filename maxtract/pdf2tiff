@@ -1,0 +1,41 @@
+#!/bin/bash
+
+script () {
+directory=`dirname $1`
+filename=`basename $1`
+
+
+pushd $directory > /dev/null
+gs -q -sDEVICE='tiffg4' -sOutputFile=`basename $filename .pdf`.tif -r'300' -dNOPAUSE -dBATCH $filename 2> /dev/null
+popd > /dev/null
+
+}
+
+test () {
+    if  [ -f $1 ]  && [ `basename $1 | awk -F. '{print $2}'` = pdf ]
+	then 
+	script $1
+    else
+	usage
+    fi
+}
+    
+
+usage () {
+echo 'Script needs arguments of the form inputfile.pdf and generates inputfile.tif'
+}
+
+
+
+
+case "$#" in
+
+0 ) usage;;
+1 ) test $1;;
+* ) for arg in $*
+    do 
+    test $arg
+    done;;
+esac
+
+exit 0
