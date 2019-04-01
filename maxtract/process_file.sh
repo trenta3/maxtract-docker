@@ -21,6 +21,9 @@ for file in $(find /tmp/$TEMPDIR -type f -iname "*.lin"); do
     ./anderson_post.opt --driver latex2 --layout latex --type LINES "$file";
 done
 find /tmp/$TEMPDIR -type f -iname "*.tex" -print | sort | xargs -n1 cat > "$FILEDIR/$BFILE.tex"
+original_owner=$(ls -l "$FILEDIR/$BFILE" | cut -d' ' -f3,4 | sed -e 's/ /:/g')
+chown "$original_owner" "$FILEDIR/$BFILE.tex"
+chmod ug+rw "$FILEDIR/$BFILE.tex"
 rm -rf /tmp/$TEMPDIR
 echo "Everything went well. Your output is in $BFILE.tex"
 

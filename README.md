@@ -14,7 +14,7 @@ In this repository there is the default `test.pdf` file from Maxtract.
 docker run -v $(pwd)/data:/data -it maxtract:latest ./process_file.sh test.pdf
 ```
 
-This should produce a file `test.tex` inside the `data` folder.
+This should produce a file `test.pdf.tex` inside the `data` folder.
 
 ## Caveats
 
@@ -25,3 +25,16 @@ This should produce a file `test.tex` inside the `data` folder.
 - If you want to know how the original program works, you should look at the paper or [at the code in other repositories](https://github.com/zorkow/MaxTract).
   If you want to know how I got it to work, look at the file in `maxtract/process_file.sh`.
   No magic involved, I just read the help of all given commands and figured out a way to get it to work.
+
+- To compile the resulting tex file you can use as preamble:
+  ```
+  \documentclass[a4paper,11pt]{article}
+  \usepackage{ifthen}
+  \usepackage{amsmath,amssymb}
+  
+  \begin{document}
+  ```
+  Then insert the whole tex file produced and after it:
+  ```
+  \end{document}
+  ```
