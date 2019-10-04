@@ -1,0 +1,7 @@
+version: '3'
+services:
+  main:
+    build: .
+    command: ./process_file.sh "${FILE-test.pdf}"
+    volumes:
+      - ./data:/data:rw
